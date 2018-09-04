@@ -14,7 +14,7 @@ namespace ItinerariesAdminWebApp.Models
         public string Email { get; set; }
         [Column(Order = 2, TypeName = "varchar(250)")]
         public string Token { get; set; }
-        [Column(Order = 3, TypeName = "")]
+        [Column(Order = 3)]
         public int SentBy { get; set; }
         [ForeignKey("SentBy")]
         public virtual Administrator Administrator { get; set; }

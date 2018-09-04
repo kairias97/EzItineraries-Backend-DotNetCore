@@ -28,16 +28,14 @@ namespace ItinerariesAdminWebApp.Models
         [Range(0, 5)]
         public decimal? Rating { get; set; }
         [Column(Order = 8)]
-        public bool? Approved { get; set; }
-        [Column(Order = 9)]
         public int CreatedBy { get; set; }
         [ForeignKey("CreatedBy")]
         public virtual Administrator Creator { get; set; }
-        [Column(Order = 10)]
+        [Column(Order = 9)]
         public int CityId { get; set; }
         public virtual City City { get; set; }
-        [Column(Order = 11)]
+        [Column(Order = 10)]
         public bool Active { get; set; } = true;
-        public Geoposition Geoposition { get; set; }
+        public virtual Geoposition Geoposition { get; set; }
     }
 }

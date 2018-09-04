@@ -19,6 +19,7 @@ namespace ItinerariesAdminWebApp.Models
         public string Alpha2Code { get; set; }
         [Column(Order = 3, TypeName = "varchar(3)")]
         public string Alpha3Code { get; set; }
+        public virtual ICollection<City> Cities { get; set; }
 
     }
 }

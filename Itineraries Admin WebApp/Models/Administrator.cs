@@ -26,5 +26,9 @@ namespace ItinerariesAdminWebApp.Models
         [NotMapped]
         [Compare("Password", ErrorMessage = "Las contraseñas no coinciden")]
         public string ConfirmationPassword { get; set; }
+        public virtual ICollection<Invitation> Invitations { get; set; }
+        public virtual ICollection<TouristAttraction> TouristAttractions { get; set; }
+        public virtual ICollection<TouristAttractionSuggestion> TouristAttractionSuggestions { get; set; }
+
     }
 }

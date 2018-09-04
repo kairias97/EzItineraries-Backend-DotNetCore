@@ -10,7 +10,7 @@ namespace ItinerariesAdminWebApp.Models.DAL
     {
         public DbSet<Country> Countries { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<City> City { get; set; }
+        public DbSet<City> Cities { get; set; }
         public DbSet<Administrator> Administrators { get; set; }
         public DbSet<Invitation> Invitations { get; set; }
         public DbSet<TouristAttraction> TouristAttractions { get; set; }
@@ -26,6 +26,10 @@ namespace ItinerariesAdminWebApp.Models.DAL
                     geop.Property(gp => gp.Latitude).HasColumnName("Latitude").HasColumnType("DECIMAL(8,6)");
                     geop.Property(gp => gp.Longitude).HasColumnName("Longitude").HasColumnType("DECIMAL(9,6)");
                 });
+            modelBuilder.Entity<TouristAttraction>()
+                .HasIndex(ta => ta.GooglePlaceId)
+                .IsUnique();
+
             modelBuilder.Entity<TouristAttractionSuggestion>()
                 .OwnsOne(tas => tas.Geoposition,
                 geop => {
@@ -33,11 +37,13 @@ namespace ItinerariesAdminWebApp.Models.DAL
                     geop.Property(gp => gp.Longitude).HasColumnName("Longitude").HasColumnType("DECIMAL(9,6)");
                 });
             modelBuilder.Entity<Administrator>()
-                .Property(a => a.Active)
-                .HasDefaultValue(true);
-            modelBuilder.Entity<TouristAttraction>()
-                .Property(ta => ta.Active)
-                .HasDefaultValue(true);
+                .HasIndex(a => a.Email)
+                .IsUnique();
+            
+            modelBuilder.Entity<TouristAttractionSuggestion>()
+                .Property(ta => ta.Approved)
+                .HasDefaultValue(null);
+
         }
     }
 }

@@ -12,6 +12,8 @@ namespace ItinerariesAdminWebApp.Models
         public int Id { get; set; }
         [Column(Order = 1, TypeName = "varchar(100)")]
         public string Name { get; set; }
+        public virtual ICollection<TouristAttraction> TouristAttractions { get; set; }
+        public virtual ICollection<TouristAttractionSuggestion> TouristAttractionSuggestions { get; set; }
 
     }
 }

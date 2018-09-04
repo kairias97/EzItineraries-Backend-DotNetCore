@@ -37,7 +37,7 @@ namespace ItinerariesAdminWebApp.Models
         [Column(Order = 10)]
         public int CityId { get; set; }
         public virtual City City { get; set; }
-        public Geoposition Geoposition { get; set; }
+        public virtual Geoposition Geoposition { get; set; }
 
     }
 }
