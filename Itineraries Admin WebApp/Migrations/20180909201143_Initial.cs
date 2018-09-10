@@ -14,10 +14,10 @@ namespace ItinerariesAdminWebApp.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Email = table.Column<string>(type: "varchar(200)", nullable: true),
-                    Password = table.Column<string>(type: "varchar(250)", nullable: true),
-                    Name = table.Column<string>(type: "varchar(120)", nullable: true),
-                    Lastname = table.Column<string>(type: "varchar(120)", nullable: true),
+                    Email = table.Column<string>(type: "varchar(200)", nullable: false),
+                    Password = table.Column<string>(type: "varchar(250)", nullable: false),
+                    Name = table.Column<string>(type: "varchar(120)", nullable: false),
+                    Lastname = table.Column<string>(type: "varchar(120)", nullable: false),
                     Active = table.Column<bool>(nullable: false),
                     IsGlobal = table.Column<bool>(nullable: false)
                 },
@@ -59,7 +59,7 @@ namespace ItinerariesAdminWebApp.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Email = table.Column<string>(type: "varchar(150)", nullable: true),
+                    Email = table.Column<string>(type: "varchar(150)", nullable: false),
                     Token = table.Column<string>(type: "varchar(250)", nullable: true),
                     SentBy = table.Column<int>(nullable: false),
                     Status = table.Column<int>(nullable: false),
@@ -103,11 +103,11 @@ namespace ItinerariesAdminWebApp.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CategoryId = table.Column<int>(nullable: false),
-                    Name = table.Column<string>(type: "250", nullable: true),
-                    Address = table.Column<string>(type: "400", nullable: true),
-                    GooglePlaceId = table.Column<string>(type: "100", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "60", nullable: true),
-                    WebsiteUrl = table.Column<string>(type: "150", nullable: true),
+                    Name = table.Column<string>(type: "varchar(250)", nullable: true),
+                    Address = table.Column<string>(type: "varchar(400)", nullable: true),
+                    GooglePlaceId = table.Column<string>(type: "varchar(100)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "varchar(60)", nullable: true),
+                    WebsiteUrl = table.Column<string>(type: "varchar(150)", nullable: true),
                     Rating = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     CreatedBy = table.Column<int>(nullable: false),
                     CityId = table.Column<int>(nullable: false),
@@ -154,6 +154,8 @@ namespace ItinerariesAdminWebApp.Migrations
                     Approved = table.Column<bool>(nullable: true),
                     AnsweredBy = table.Column<int>(nullable: true),
                     CityId = table.Column<int>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: true, defaultValueSql: "getutcdate()"),
+                    AnsweredDate = table.Column<DateTime>(nullable: true),
                     Latitude = table.Column<decimal>(type: "DECIMAL(8,6)", nullable: false),
                     Longitude = table.Column<decimal>(type: "DECIMAL(9,6)", nullable: false)
                 },
@@ -184,8 +186,7 @@ namespace ItinerariesAdminWebApp.Migrations
                 name: "IX_Administrators_Email",
                 table: "Administrators",
                 column: "Email",
-                unique: true,
-                filter: "[Email] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Cities_CountryId",

@@ -14,15 +14,15 @@ namespace ItinerariesAdminWebApp.Models
         [Column(Order = 1)]
         public int CategoryId { get; set; }
         public virtual Category Category { get; set; }
-        [Column(Order = 2, TypeName = "250")]
+        [Column(Order = 2, TypeName = "varchar(250)")]
         public string Name { get; set; }
-        [Column(Order = 3, TypeName = "400")]
+        [Column(Order = 3, TypeName = "varchar(400)")]
         public string Address { get; set; }
-        [Column(Order = 4, TypeName = "100")]
+        [Column(Order = 4, TypeName = "varchar(100)")]
         public string GooglePlaceId { get; set; }
-        [Column(Order = 5, TypeName = "60")]
+        [Column(Order = 5, TypeName = "varchar(60)")]
         public string PhoneNumber { get; set; }
-        [Column(Order = 6, TypeName = "150")]
+        [Column(Order = 6, TypeName = "varchar(150)")]
         public string WebsiteUrl { get; set; }
         [Column(Order = 7, TypeName = "decimal(18,2)")]
         [Range(0, 5)]

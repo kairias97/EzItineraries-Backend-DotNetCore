@@ -15,7 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Itineraries_Admin_WebApp
+namespace ItinerariesAdminWebApp
 {
     public class Startup
     {

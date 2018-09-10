@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewData["Title"] = "Creación de nueva cuenta";
+}
+@model InvitationConfirmationViewModel
+<div class="row">
+    <div class="panel panel-default col-md-6 offset-md-3 col-sm-12">
+        <div class="panel-heading">Creación de cuenta de administrador de atracciones turísticas</div>
+        <div class="panel-body">
+            <form action="Accept" method="post">
+                <input type="text" name="Token" value="@Model.Token" />
+                <div class="form-group">
+                    <label for="Administrator_Name">Nombre</label>
+                    <input type="text" asp-for="@Model.Administrator.Name" required class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <label for="Administrator_Lastname">Apellido</label>
+                    <input type="text" asp-for="@Model.Administrator.Lastname" required class="form-control"/>
+                </div>
+
+                <div class="form-group">
+                    <label for="Administrator_Email">Correo electrónico</label>
+                    <input type="email" asp-for="@Model.Administrator.Email" required class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <label for="Administrator_Password">Contraseña</label>
+                    <input type="password" asp-for="@Model.Administrator.Password" required class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <label for="Administrator_ConfirmationPassword">Confirmar contraseña</label>
+                    <input type="password" asp-for="@Model.Administrator.ConfirmationPassword" required class="form-control"/>
+                </div>
+
+                <button type="submit" class="btn btn-primary text-center">Enviar</button>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+

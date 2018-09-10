@@ -36,6 +36,10 @@ namespace ItinerariesAdminWebApp.Models
         public virtual Administrator Approver {get; set; }
         [Column(Order = 10)]
         public int CityId { get; set; }
+        [Column(Order = 11)]
+        public DateTime? CreatedDate { get; set; }
+        [Column(Order = 12)]
+        public DateTime? AnsweredDate { get; set; }
         public virtual City City { get; set; }
         public virtual Geoposition Geoposition { get; set; }
 

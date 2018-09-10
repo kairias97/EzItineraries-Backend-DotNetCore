@@ -9,15 +9,17 @@ namespace ItinerariesAdminWebApp.Models.DAL
     {
         private ApplicationDbContext context;
         private readonly ICryptoManager _crypto;
-        public EFAdministratorRepository(ApplicationDbContext ctx)
+        public EFAdministratorRepository(ApplicationDbContext ctx, ICryptoManager manager)
         {
             context = ctx;
+            _crypto = manager;
         }
 
         public IQueryable<Administrator> GetAdministrators => context.Administrators;
 
         public void CreateAccount(Administrator administrator)
         {
+            administrator.Password = _crypto.HashString(administrator.Password);
             context.Administrators.Add(administrator);
             context.SaveChanges();
         }

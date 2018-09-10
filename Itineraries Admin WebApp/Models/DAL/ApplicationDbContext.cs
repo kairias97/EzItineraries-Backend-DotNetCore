@@ -44,6 +44,10 @@ namespace ItinerariesAdminWebApp.Models.DAL
                 .Property(ta => ta.Approved)
                 .HasDefaultValue(null);
 
+            modelBuilder.Entity<TouristAttractionSuggestion>()
+                .Property(ta => ta.CreatedDate)
+                .HasDefaultValueSql("getutcdate()");
+
         }
     }
 }

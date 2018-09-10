@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    @*<meta name="viewport" content="width=device-width" />*@
+    <meta name="viewport" content="width=device-width">
+    <title>@ViewBag.Title</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" asp-href-include="/css/*.css" />
+    <link href="~/lib/@@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet"
+          asp-href-include="/lib/bootstrap/dist/**/*.min.css"
+          asp-href-exclude="**/*-reboot*,**/*-grid" />
+    <link rel="stylesheet" href="~/css/sidenav.css" />
+    <script type="text/javascript" src="~/js/index.js"></script>
+    <link asp-href-include="/lib/jquery-ui/themes/base/*.css" rel="stylesheet" />
+    @*<link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />*@
+    @*<script src="~/lib/jquery-ui/ui/widgets/autocomplete.js" type="text/javascript"></script>*@
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top" role="navigation">
+        <a class="navbar-brand" href="#">NombreApp</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarToggle">
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdownUsuarios" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Usuarios
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownUsuarios">
+                        <a class="dropdown-item" asp-controller="Attorney" asp-action="New">Crear</a>
+                        <a class="dropdown-item" asp-controller="Attorney" asp-action="Admin">Administrar</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdownClientes" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Clientes
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownClientes">
+                        <a class="dropdown-item" asp-controller="Client" asp-action="New">Agregar nuevo</a>
+                        <a class="dropdown-item" asp-controller="Client" asp-action="Admin">Administrar</a>
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdownServicios" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Servicios
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownServicios">
+
+                        <a class="dropdown-item" asp-action="New" asp-controller="Category">Crear categoría</a>
+                        <a class="dropdown-item" asp-action="Admin" asp-controller="Category">Administrar categorías</a>
+                        <a class="dropdown-item" asp-action="New" asp-controller="Service">Crear servicio</a>
+                        <a class="dropdown-item" asp-action="Admin" asp-controller="Service">Administrar servicios</a>
+
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdownGastos" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Gastos
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownGastos">
+                        <a class="dropdown-item" asp-controller="Expense" asp-action="New">Crear nuevo tipo de gasto</a>
+                        <a class="dropdown-item" asp-controller="Expense" asp-action="Admin">Administrar tipos de gastos</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdownItems" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Ítems
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownItems">
+                        <a class="dropdown-item" asp-controller="Item" asp-action="New">Crear nuevo ítem</a>
+                        <a class="dropdown-item" asp-controller="Item" asp-action="Admin">Administrar</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdownRetainers" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Retainers
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownRetainers">
+                        <a class="dropdown-item" asp-controller="Retainer" asp-action="New">Crear nuevo tipo de retainer</a>
+                        <a class="dropdown-item" asp-controller="Retainer" asp-action="Admin">Administrar tipos de retainers</a>
+
+                        <a class="dropdown-item" asp-controller="RetainerSubscription" asp-action="New">Crear nueva suscripción de retainer</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdownPackages" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Paquetes
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownPackages">
+                        <a class="dropdown-item" asp-controller="Package" asp-action="New">Registrar nuevo Paquete</a>
+                        <a class="dropdown-item" asp-controller="Package" asp-action="Admin">Administrar paquetes</a>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+    <div class="row">
+        <main class="col-md-9 ml-sm-auto col-lg-10 px-4" role="main">
+            <div class="container">
+                @RenderBody()
+            </div>
+        </main>
+    </div>
+</body>
+</html>

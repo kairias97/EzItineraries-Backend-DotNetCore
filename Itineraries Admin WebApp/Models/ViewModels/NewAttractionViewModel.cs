@@ -8,6 +8,7 @@ namespace ItinerariesAdminWebApp.Models.ViewModels
     public class NewAttractionViewModel
     {
         public IEnumerable<Country> Countries { get; set; }
+        public IEnumerable<Category> Categories { get; set; }
         public TouristAttraction Attraction { get; set; }
     }
 }

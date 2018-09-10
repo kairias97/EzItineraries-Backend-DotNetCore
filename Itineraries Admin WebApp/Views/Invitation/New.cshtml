@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewData["Title"] = "Nueva invitación";
+}
+@model Invitation
+<div class="row">
+    <div class="panel panel-default col-md-6 col-sm-12">
+        <div class="panel-heading">Invitación de usuario administrador de atracciones turísticas</div>
+        <div class="panel-body">
+            <form action="New" method="post">
+                <div class="form-group">
+                    <label for="Email">Correo electrónico</label>
+                    <input type="email" asp-for="@Model.Email" required class="form-control"/>
+                </div>
+                <button type="submit" class="btn btn-primary text-center">Enviar</button>
+            </form>
+        </div>
+    </div>
+
+</div>
+

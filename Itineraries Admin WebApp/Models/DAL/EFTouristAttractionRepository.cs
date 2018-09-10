@@ -16,9 +16,19 @@ namespace ItinerariesAdminWebApp.Models.DAL
 
         public IQueryable<TouristAttraction> GetAttractions => context.TouristAttractions;
 
-        public void ChangeStatus(int touristAttractionId, bool active)
+
+        public void Disable(int touristAttractionId)
         {
-            var attraction = new TouristAttraction { Id = touristAttractionId, Active = active };
+            var attraction = new TouristAttraction { Id = touristAttractionId, Active = false };
+            context.TouristAttractions.Attach(attraction);
+            context.Entry(attraction).Property(a => a.Active).IsModified = true;
+            context.SaveChanges();
+            //After update it will be needed to recreate the matrix
+        }
+
+        public void Enable(int touristAttractionId)
+        {
+            var attraction = new TouristAttraction { Id = touristAttractionId, Active = true };
             context.TouristAttractions.Attach(attraction);
             context.Entry(attraction).Property(a => a.Active).IsModified = true;
             context.SaveChanges();

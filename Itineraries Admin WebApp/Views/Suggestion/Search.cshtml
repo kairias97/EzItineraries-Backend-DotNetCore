@@ -1,0 +1,106 @@
+﻿
+@{
+    ViewData["Title"] = "Administración de sugerencias";
+}
+@model SuggestionAdminViewModel
+<script type="text/javascript">
+    $(function () {
+        @if(Model.SelectedStatus != null && (bool)Model.SelectedStatus)
+        {
+            @:$("#status1").prop('checked', true);
+        } else if(Model.SelectedStatus != null && !((bool)Model.SelectedStatus))
+        {
+            @:$("#status2").prop('checked', true);
+        }
+        else
+        {
+            @:$("#status3").prop('checked', true);
+
+        }
+
+    });
+
+</script>
+@if (ViewBag.ApprovedSuggestion != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <p>@($"Sugerencia de atracción turística {((bool)ViewBag.ApprovedSuggestion ? "aprobada": "rechazada")} exitosamente!")</p>
+
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+
+}
+<h3>Administración de sugerencias de atracciones turísticas</h3>
+<div class="row">
+    <div class="panel panel-default col-md-6 col-sm-12">
+        <div class="panel-heading">Filtro de búsqueda</div>
+        <div class="panel-body">
+            <form action="Search" method="get">
+                <div class="form-group">
+                    <label for="status">Estado:</label>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="status" id="status1" value="true">
+                        <label class="form-check-label" for="status1">Aprobadas</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="status" id="status2" value="false">
+                        <label class="form-check-label" for="status2">Rechazadas</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="status" id="status3" value="false">
+                        <label class="form-check-label" for="status3">Sin aprobar</label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Buscar</button>
+            </form>
+        </div>
+    </div>
+
+</div>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Nombre de la atracción</th>
+                <th>País</th>
+                <th>Ciudad</th>
+                <th>Categoría</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var suggestion in Model.Suggestions)
+            {
+                <tr>
+                    <td>@suggestion.Name</td>
+                    <td>@suggestion.City?.Country?.Name</td>
+                    <td>@suggestion.City?.Name</td>
+                    <td>@suggestion.Category?.Name</td>
+                    <td>@(suggestion.Approved == null ? "Sin aprobar" : ((bool)suggestion.Approved) ? "Aprobada" : "Rechazada")</td>
+                    <td>
+                        @if (suggestion.Approved == null)
+                        {
+                            <a asp-action="Approval" asp-route-id="@suggestion.Id"><i class="fas fa-clipboard-list" data-toggle="tooltip" data-placement="top" title="Aprobar"></i></a>
+                        }
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div page-model="@Model.PagingInfo" page-action="Search" page-classes-enabled="true"
+     page-class="btn" page-class-normal="btn-outline-info"
+     page-class-selected="btn-info" page-url-status="@Model.SelectedStatus"
+     page-number-url-key="pageNumber"
+     class="btn-group float-right m-1">
+
+</div>
+

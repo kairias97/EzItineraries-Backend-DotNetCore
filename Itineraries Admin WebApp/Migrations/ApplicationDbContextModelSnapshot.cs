@@ -28,24 +28,27 @@ namespace ItinerariesAdminWebApp.Migrations
                     b.Property<bool>("Active");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("varchar(200)");
 
                     b.Property<bool>("IsGlobal");
 
                     b.Property<string>("Lastname")
+                        .IsRequired()
                         .HasColumnType("varchar(120)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("varchar(120)");
 
                     b.Property<string>("Password")
+                        .IsRequired()
                         .HasColumnType("varchar(250)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("Email")
-                        .IsUnique()
-                        .HasFilter("[Email] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("Administrators");
                 });
@@ -112,6 +115,7 @@ namespace ItinerariesAdminWebApp.Migrations
                     b.Property<DateTime>("CreatedDate");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("varchar(150)");
 
                     b.Property<int>("SentBy");
@@ -137,7 +141,7 @@ namespace ItinerariesAdminWebApp.Migrations
                     b.Property<bool>("Active");
 
                     b.Property<string>("Address")
-                        .HasColumnType("400");
+                        .HasColumnType("varchar(400)");
 
                     b.Property<int>("CategoryId");
 
@@ -146,19 +150,19 @@ namespace ItinerariesAdminWebApp.Migrations
                     b.Property<int>("CreatedBy");
 
                     b.Property<string>("GooglePlaceId")
-                        .HasColumnType("100");
+                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("250");
+                        .HasColumnType("varchar(250)");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("60");
+                        .HasColumnType("varchar(60)");
 
                     b.Property<decimal?>("Rating")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("WebsiteUrl")
-                        .HasColumnType("150");
+                        .HasColumnType("varchar(150)");
 
                     b.HasKey("Id");
 
@@ -186,6 +190,8 @@ namespace ItinerariesAdminWebApp.Migrations
 
                     b.Property<int?>("AnsweredBy");
 
+                    b.Property<DateTime?>("AnsweredDate");
+
                     b.Property<bool?>("Approved")
                         .ValueGeneratedOnAdd()
                         .HasDefaultValue(null);
@@ -193,6 +199,10 @@ namespace ItinerariesAdminWebApp.Migrations
                     b.Property<int>("CategoryId");
 
                     b.Property<int>("CityId");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("getutcdate()");
 
                     b.Property<string>("GooglePlaceId")
                         .HasColumnType("varchar(100)");

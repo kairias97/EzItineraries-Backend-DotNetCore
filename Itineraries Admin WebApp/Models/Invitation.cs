@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,6 +11,8 @@ namespace ItinerariesAdminWebApp.Models
     {
         [Column(Order = 0)]
         public int Id { get; set; }
+        [Required(ErrorMessage = "El correo es requerido")]
+        [EmailAddress(ErrorMessage = "El formato del correo es inválido")]
         [Column(Order = 1, TypeName = "varchar(150)")]
         public string Email { get; set; }
         [Column(Order = 2, TypeName = "varchar(250)")]
@@ -29,6 +32,6 @@ namespace ItinerariesAdminWebApp.Models
         Registered = 0,
         Sent = 1,
         Accepted = 2,
-        Rejected = 3
+        Cancelled = 3
     }
 }

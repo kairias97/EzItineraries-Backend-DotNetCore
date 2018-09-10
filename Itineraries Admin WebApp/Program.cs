@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace Itineraries_Admin_WebApp
+namespace ItinerariesAdminWebApp
 {
     public class Program
     {

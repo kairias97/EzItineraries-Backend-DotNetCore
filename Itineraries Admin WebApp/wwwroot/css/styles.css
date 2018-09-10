@@ -1,0 +1,31 @@
+﻿.custom-link {
+    color: #55bae6;
+}
+
+.custom-nav {
+    background: #55bae6;
+}
+
+.custom-link:hover {
+    color: #f4a234;
+}
+
+a.nav-link {
+    color: white;
+}
+
+a.navbar-brand {
+    color: white;
+}
+
+    a.navbar-brand:hover {
+        color: white;
+    }
+
+a.nav-link:hover {
+    color: #f4a234;
+}
+
+nav {
+    background-color: #005F99;
+}

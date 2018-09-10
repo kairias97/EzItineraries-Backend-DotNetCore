@@ -20,12 +20,15 @@ namespace ItinerariesAdminWebApp.Models.DAL
             
             suggestion.Approved = true;
             suggestion.AnsweredBy = approverId;
+            suggestion.AnsweredDate = DateTime.UtcNow;
             context.TouristAttractionSuggestions.Attach(suggestion);
             context.Entry(suggestion).Property(s => s.Rating).IsModified = true;
             context.Entry(suggestion).Property(s => s.WebsiteUrl).IsModified = true;
             context.Entry(suggestion).Property(s => s.AnsweredBy).IsModified = true;
             context.Entry(suggestion).Property(s => s.Approved).IsModified = true;
             context.Entry(suggestion).Property(s => s.PhoneNumber).IsModified = true;
+
+            context.Entry(suggestion).Property(s => s.AnsweredDate).IsModified = true;
 
             //Creation of new touristic attraction
             var newAttraction = new TouristAttraction
@@ -49,8 +52,12 @@ namespace ItinerariesAdminWebApp.Models.DAL
 
         public void Reject(int suggestionId, int rejectorId)
         {
-            var suggestion = new TouristAttractionSuggestion { Id = suggestionId, Approved = false, AnsweredBy = rejectorId };
+            var suggestion = new TouristAttractionSuggestion { Id = suggestionId, Approved = false, AnsweredBy = rejectorId, AnsweredDate =DateTime.UtcNow};
             context.TouristAttractionSuggestions.Attach(suggestion);
+            context.Entry(suggestion).Property(s => s.AnsweredBy).IsModified = true;
+            context.Entry(suggestion).Property(s => s.Approved).IsModified = true;
+
+            context.Entry(suggestion).Property(s => s.AnsweredDate).IsModified = true;
             context.SaveChanges();
             
         }

@@ -9,6 +9,7 @@ namespace ItinerariesAdminWebApp.Models
     {
         void SaveChanges(TouristAttraction attraction);
         IQueryable<TouristAttraction> GetAttractions { get; }
-        void ChangeStatus(int touristAttractionId, bool active);
+        void Enable(int touristAttractionId);
+        void Disable(int touristAttractionId);
     }
 }

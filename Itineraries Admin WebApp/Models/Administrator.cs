@@ -11,12 +11,17 @@ namespace ItinerariesAdminWebApp.Models
     {
         [Column(Order = 0)]
         public int Id { get; set; }
+        [Required(ErrorMessage = "El correo es requerido")]
+        [EmailAddress(ErrorMessage ="El formato del correo es inválido")]
         [Column(Order = 1, TypeName = "varchar(200)")]
         public string Email { get; set; }
+        [Required(ErrorMessage ="La contraseña es requerida")]
         [Column(Order = 2, TypeName = "varchar(250)")]
         public string Password { get; set; }
+        [Required(ErrorMessage = "El nombre es requerido")]
         [Column(Order = 3, TypeName = "varchar(120)")]
         public string Name { get; set; }
+        [Required(ErrorMessage ="El apellido es requerido")]
         [Column(Order = 4, TypeName = "varchar(120)")]
         public string Lastname { get; set; }
         [Column(Order = 5)]
