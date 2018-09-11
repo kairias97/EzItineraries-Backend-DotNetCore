@@ -4,14 +4,16 @@ using ItinerariesAdminWebApp.Models.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ItinerariesAdminWebApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180911013712_TouristAttractionConnection_rename2")]
+    partial class TouristAttractionConnection_rename2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -287,13 +289,15 @@ namespace ItinerariesAdminWebApp.Migrations
                                 .ValueGeneratedOnAdd()
                                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                            b1.Property<double>("Latitude")
+                            b1.Property<decimal>("Latitude")
+                                .HasConversion(new ValueConverter<decimal, decimal>(v => default(decimal), v => default(decimal), new ConverterMappingHints(precision: 38, scale: 17)))
                                 .HasColumnName("Latitude")
-                                .HasColumnType("float(53)");
+                                .HasColumnType("DECIMAL(8,6)");
 
-                            b1.Property<double>("Longitude")
+                            b1.Property<decimal>("Longitude")
+                                .HasConversion(new ValueConverter<decimal, decimal>(v => default(decimal), v => default(decimal), new ConverterMappingHints(precision: 38, scale: 17)))
                                 .HasColumnName("Longitude")
-                                .HasColumnType("float(53)");
+                                .HasColumnType("DECIMAL(9,6)");
 
                             b1.ToTable("TouristAttractions");
 
@@ -344,13 +348,15 @@ namespace ItinerariesAdminWebApp.Migrations
                                 .ValueGeneratedOnAdd()
                                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                            b1.Property<double>("Latitude")
+                            b1.Property<decimal>("Latitude")
+                                .HasConversion(new ValueConverter<decimal, decimal>(v => default(decimal), v => default(decimal), new ConverterMappingHints(precision: 38, scale: 17)))
                                 .HasColumnName("Latitude")
-                                .HasColumnType("float(53)");
+                                .HasColumnType("DECIMAL(8,6)");
 
-                            b1.Property<double>("Longitude")
+                            b1.Property<decimal>("Longitude")
+                                .HasConversion(new ValueConverter<decimal, decimal>(v => default(decimal), v => default(decimal), new ConverterMappingHints(precision: 38, scale: 17)))
                                 .HasColumnName("Longitude")
-                                .HasColumnType("float(53)");
+                                .HasColumnType("DECIMAL(9,6)");
 
                             b1.ToTable("TouristAttractionSuggestions");
 

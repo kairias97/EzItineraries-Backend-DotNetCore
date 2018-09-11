@@ -15,7 +15,8 @@ namespace ItinerariesAdminWebApp.Models.DAL
         public DbSet<Invitation> Invitations { get; set; }
         public DbSet<TouristAttraction> TouristAttractions { get; set; }
         public DbSet<TouristAttractionSuggestion> TouristAttractionSuggestions { get; set; }
-
+        public DbSet<TouristAttractionConnection> TouristAttractionConnections { get; set; }
+        
         public ApplicationDbContext(DbContextOptions options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -23,8 +24,8 @@ namespace ItinerariesAdminWebApp.Models.DAL
             modelBuilder.Entity<TouristAttraction>()
                 .OwnsOne(ta => ta.Geoposition, 
                 geop => {
-                    geop.Property(gp => gp.Latitude).HasColumnName("Latitude").HasColumnType("DECIMAL(8,6)");
-                    geop.Property(gp => gp.Longitude).HasColumnName("Longitude").HasColumnType("DECIMAL(9,6)");
+                    geop.Property(gp => gp.Latitude).HasColumnName("Latitude").HasColumnType("float(53)");
+                    geop.Property(gp => gp.Longitude).HasColumnName("Longitude").HasColumnType("float(53)");
                 });
             modelBuilder.Entity<TouristAttraction>()
                 .HasIndex(ta => ta.GooglePlaceId)
@@ -33,8 +34,8 @@ namespace ItinerariesAdminWebApp.Models.DAL
             modelBuilder.Entity<TouristAttractionSuggestion>()
                 .OwnsOne(tas => tas.Geoposition,
                 geop => {
-                    geop.Property(gp => gp.Latitude).HasColumnName("Latitude").HasColumnType("DECIMAL(8,6)");
-                    geop.Property(gp => gp.Longitude).HasColumnName("Longitude").HasColumnType("DECIMAL(9,6)");
+                    geop.Property(gp => gp.Latitude).HasColumnName("Latitude").HasColumnType("float(53)");
+                    geop.Property(gp => gp.Longitude).HasColumnName("Longitude").HasColumnType("float(53)");
                 });
             modelBuilder.Entity<Administrator>()
                 .HasIndex(a => a.Email)
@@ -48,6 +49,17 @@ namespace ItinerariesAdminWebApp.Models.DAL
                 .Property(ta => ta.CreatedDate)
                 .HasDefaultValueSql("getutcdate()");
 
+            modelBuilder.Entity<TouristAttractionConnection>()
+                .HasKey(tad => new { tad.CityId, tad.OriginId, tad.DestinationId });
+            modelBuilder.Entity<TouristAttractionConnection>()
+                .HasOne(tad => tad.Origin)
+                .WithMany(ta => ta.OriginPositionDistances)
+                .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<TouristAttractionConnection>()
+                .HasOne(tad => tad.Destination)
+                .WithMany(ta => ta.DestinationPositionDistances)
+                .HasForeignKey(tad => tad.DestinationId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

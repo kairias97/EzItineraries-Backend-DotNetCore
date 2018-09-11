@@ -37,5 +37,7 @@ namespace ItinerariesAdminWebApp.Models
         [Column(Order = 10)]
         public bool Active { get; set; } = true;
         public virtual Geoposition Geoposition { get; set; }
+        public virtual ICollection<TouristAttractionConnection> OriginPositionDistances { get; set; }
+        public virtual ICollection<TouristAttractionConnection> DestinationPositionDistances { get; set; }
     }
 }

@@ -71,6 +71,8 @@ namespace ItinerariesAdminWebApp
             services.AddTransient<IInvitationRepository, EFInvitationRepository>();
             services.AddTransient<ITouristAttractionRepository, EFTouristAttractionRepository>();
             services.AddTransient<ITouristAttractionSuggestionRepository, EFTouristAttractionSuggestionRepository>();
+            services.AddTransient<ITouristAttractionConnectionRepository, EFTouristAttractionConnectionRepository>();
+            services.AddSingleton<IDistanceCalculator, KmDistanceCalculator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -4,21 +4,31 @@
 }
 @model NewAttractionViewModel
 <h3>Nueva atracción turística</h3>
-<form action="Add" method="post">
+<form asp-action="Add" method="post">
     @if (ViewBag.Added ?? false)
     {
-        <div class="alert alert-danger alert-dismissible fade show">
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <p>Atracción turística registrada exitosamente</p>
 
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <p>Atracción turística registrada exitosamente</p>
+
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
 
     }
     <div class="form-row">
+        @if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
+        {
+            // Bootstrap 2 = "alert-error", Bootstrap 3 and 4 = "alert-danger"
+            <div class="alert alert-danger alert-dismissible fade show">
+                @Html.ValidationSummary(false, "Errores de validación:")
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+        }
         <div class="form-group col-md-5">
             <label name="CountryId" for="countrySelect">País</label>
             <select asp-items="@(new SelectList(Model.Countries, "IsoNumericCode", "Name"))" onchange="onCountrySelected(this)" required class="form-control">
@@ -35,29 +45,29 @@
     <div class="form-row">
         <div class="form-group col-md-5">
             <label for="Attraction_Name">Nombre de la atracción turística</label>
-            <input type="text" asp-for="@Model.Attraction.Name" required class="form-control"/>
+            <input type="text" asp-for="@Model.Attraction.Name" required class="form-control" />
         </div>
         <div class="form-group offset-md-1 col-md-5">
 
             <label for="Attraction_Address">Dirección de la atracción turística</label>
-            <textarea asp-for="@Model.Attraction.Address" required class="form-control"/>
+            <textarea asp-for="@Model.Attraction.Address" required class="form-control"></textarea>
         </div>
     </div>
     <div class="form-row">
         <div class="form-group col-md-5">
 
             <label for="Attraction_Geoposition_Latitude">Latitud</label>
-            <input type="number" step="0.0000001" asp-for="@Model.Attraction.Geoposition.Latitude" required class="form-control"/>
+            <input type="number" step="0.000000000000001" asp-for="@Model.Attraction.Geoposition.Latitude" required class="form-control" />
         </div>
         <div class="form-group offset-md-1 col-md-5">
             <label for="Attraction_Geoposition_Longitude">Longitud</label>
-            <input type="number" step="0.0000001" asp-for="@Model.Attraction.Geoposition.Longitude" required class="form-control"/>
+            <input type="number" step="0.000000000000001" asp-for="@Model.Attraction.Geoposition.Longitude" required class="form-control" />
         </div>
     </div>
     <div class="form-row">
         <div class="form-group col-md-5">
             <label for="Attraction_GooglePlaceId">Google Place Id</label>
-            <input type="text" asp-for="@Model.Attraction.GooglePlaceId" required class="form-control"/>
+            <input type="text" asp-for="@Model.Attraction.GooglePlaceId" required class="form-control" />
         </div>
         <div class="form-group offset-md-1 col-md-5">
             <label name="Attraction_CategoryId" for="countrySelect">Categoría</label>
@@ -68,27 +78,19 @@
     </div>
     <div class="form-row">
         <div class="form-group col-md-5">
-            <div class="form-group offset-md-1 col-md-5">
-                <label for="Attraction_WebsiteUrl">URL Sitio web</label>
-                <input type="text" asp-for="@Model.Attraction.WebsiteUrl" />
-            </div>
+            <label for="Attraction_WebsiteUrl">URL Sitio web</label>
+            <input type="text" asp-for="@Model.Attraction.WebsiteUrl" class="form-control" />
         </div>
         <div class="form-group offset-md-1 col-md-5">
-            <div class="form-group offset-md-1 col-md-5">
-                <label for="Attraction_PhoneNumber">Número de teléfono para la atracción</label>
-                <input type="text" asp-for="@Model.Attraction.PhoneNumber" />
-            </div>
+            <label for="Attraction_PhoneNumber">Número de teléfono para la atracción</label>
+            <input type="text" asp-for="@Model.Attraction.PhoneNumber" class="form-control" />
         </div>
 
     </div>
     <div class="form-row">
         <div class="form-group col-md-5">
-            <div class="form-group offset-md-1 col-md-5">
-                <div class="form-group offset-md-1 col-md-5">
-                    <label for="Attraction_Rating">Rating</label>
-                    <input type="number" step="0.01" asp-for="@Model.Attraction.Rating" />
-                </div>
-            </div>
+            <label for="Attraction_Rating">Rating</label>
+            <input type="number" step="0.01" asp-for="@Model.Attraction.Rating" class="form-control" />
         </div>
     </div>
     <button type="submit" class="btn btn-primary">Registrar</button>
@@ -110,13 +112,12 @@
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (data) {
-                console.log(data);
-
+                
                 $('#Attraction_CityId').empty();
                 $('#Attraction_CityId').append('<option value="">Seleccione una ciudad</option>');
                 $.each(data, function (i, item) {
-                    console.log(item);
-                    var optionTag= '<option value="'+item.Id+'">'+item.Name+'</option>'
+                 
+                    var optionTag= '<option value="'+item.id+'">'+item.name+'</option>'
                     
                     $('#Attraction_CityId').append(optionTag);
                 }); //End of foreach Loop   
@@ -172,13 +173,13 @@
         var place = autocomplete.getPlace();
           console.log(place);
           $("#Attraction_Address").val(place.formatted_address);
-          $("#Attraction_Geoposition_Latitude").val(place.geometry.lat);
-          $("#Attraction_Geoposition_Longitude").val(place.geometry.lng);
-          $("Attraction_GooglePlaceId").val(place.place_id);
-          $("Attraction_PhoneNumber").val(place.international_phone_number);
-          $("Attraction_Name").val(place.name);
-          $("Attraction_Rating").val(place.rating);
-          $("Attraction_WebsiteUrl").val(place.website);
+          $("#Attraction_Geoposition_Latitude").val(place.geometry.location.lat);
+          $("#Attraction_Geoposition_Longitude").val(place.geometry.location.lng);
+          $("#Attraction_GooglePlaceId").val(place.place_id);
+          $("#Attraction_PhoneNumber").val(place.international_phone_number);
+          $("#Attraction_Name").val(place.name);
+          $("#Attraction_Rating").val(place.rating);
+          $("#Attraction_WebsiteUrl").val(place.website);
           
       }
 

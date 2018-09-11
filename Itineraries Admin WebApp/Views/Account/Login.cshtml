@@ -33,7 +33,7 @@
     @if (ViewBag.AccountCreated ?? false)
     {
         <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <p>Cuenta de administrador de atracciones turísticas creadas exitosamente!</p>
+            <p>Cuenta de administrador de atracciones turísticas creada exitosamente!</p>
 
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -51,26 +51,31 @@
                 </button>
             </div>
         }
-        <div class="text-center container">
-            <h4>Inicio de sesión</h4>
-            <div class="form-row">
-                <div class="form-group col-md-6 offset-md-3">
-                    <label for="Email">Correo electrónico:</label>
-                    <input type="text" asp-for="Email" class="form-control" required />
+        <br />
+            <div class="card col-md-4 offset-md-4">
+                <br />
+                <h4 class="card-title text-center">Inicio de sesión</h4>
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="form-group col-md-6 offset-md-3">
+                            <label for="Email">Correo electrónico:</label>
+                            <input type="text" asp-for="Email" class="form-control" required />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6 offset-md-3">
+                            <label for="Password">Contraseña:</label>
+                            <input type="password" asp-for="Password" class="form-control" required />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6 offset-md-3">
+                            <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="form-row">
-                <div class="form-group col-md-6 offset-md-3">
-                    <label for="Password">Contraseña:</label>
-                    <input type="password" asp-for="Password" class="form-control" required />
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-6 offset-md-3">
-                    <button type="submit" class="btn btn-primary">Iniciar sesión</button>
-                </div>
-            </div>
-        </div>
+        
     </form>
 </body>
 </html>

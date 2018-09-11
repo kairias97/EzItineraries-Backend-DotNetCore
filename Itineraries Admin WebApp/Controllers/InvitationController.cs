@@ -49,9 +49,9 @@ namespace ItinerariesAdminWebApp.Controllers
             int creatorId = Convert.ToInt32(User.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).First().Value);
             _invitationRepository.RegisterNew(invitation, creatorId);
             //Then proceed to send the email
-            string url = $"{_configuration["ItinerariesWebAdminApp:invitationUrl"]}?token={HttpUtility.UrlEncode(invitation.Token)}";
+            string url = $"{_configuration["ItinerariesAdminWebApp:invitationUrl"]}?token={HttpUtility.UrlEncode(invitation.Token)}";
             string msg = $"Ha sido invitado a convertirse en un administrador de atracciones turísticas para la app móvil [NombreApp]." +
-                $"Ingrese al siguiente <a href='{url}'>enlace/a> para crear su cuenta de usuario";
+                $"Ingrese al siguiente <a href='{url}'>enlace</a> para crear su cuenta de usuario";
             bool success = await _mailSender.Send(invitation.Email, "Invitación para ser Administrador de atracciones turísticas", "", msg);
             if (success)
             {
@@ -81,21 +81,21 @@ namespace ItinerariesAdminWebApp.Controllers
         }
         [AllowAnonymous]
         [HttpPost]
-        public IActionResult Accept(string Token, Administrator NewAdmin)
+        public IActionResult Accept(string Token, Administrator Administrator)
         {
             if(!_invitationRepository.IsValidInvitation(Token))
             {
                 ModelState.AddModelError("invalidInvitation", "Invitación inválida, no es posible crear una nueva cuenta");
             }
-            if(!_invitationRepository.VerifyInvitationEmail(NewAdmin.Email))
+            if(!_invitationRepository.VerifyInvitationEmail(Administrator.Email))
             {
                 ModelState.AddModelError("existingEmail", "El correo que desea utilizar ya existe, no es posible crear una nueva cuenta");
             }
             if (!ModelState.IsValid)
             {
-                return View(new InvitationConfirmationViewModel { Token = Token, Administrator = NewAdmin});
+                return View("Confirmation",new InvitationConfirmationViewModel { Token = Token, Administrator = Administrator });
             }
-            _administratorRepository.CreateAccount(NewAdmin);
+            _administratorRepository.CreateAccount(Administrator);
             _invitationRepository.AcceptInvitation(Token);
             TempData["accountCreated"] = true;
             return RedirectToAction("Login", "Account");

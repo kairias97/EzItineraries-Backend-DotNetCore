@@ -24,8 +24,9 @@ namespace ItinerariesAdminWebApp.Models.DAL
 
         public void ChangeStatus(int invitationId, InvitationStatus newStatus)
         {
-            var invitation = new Invitation { Id = invitationId, Status = newStatus};
-            context.Invitations.Attach(invitation);
+            var invitation = context.Invitations.Find(invitationId);
+            context.Entry(invitation).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
+            invitation.Status = newStatus;
             context.Entry(invitation).Property(i => i.Status).IsModified = true;
             context.SaveChanges();
             

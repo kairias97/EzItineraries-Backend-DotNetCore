@@ -16,5 +16,6 @@ namespace ItinerariesAdminWebApp.Models
         public string CountryId { get; set; }
         [ForeignKey("CountryId")]
         public virtual Country Country { get; set; }
+        public virtual ICollection<TouristAttractionConnection> TouristAttractionDistances { get; set; }
     }
 }

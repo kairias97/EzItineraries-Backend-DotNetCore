@@ -1,3 +1,26 @@
 ﻿@{
     ViewData["title"] = "Inicio";
+    var isGlobalAdmin = User.IsInRole("GlobalAdmin");
+    var userTitle = isGlobalAdmin ? "administrador global" : "administrador de atracciones turísticas";
 }
+<br />
+<div class="row ">
+    
+    <div class="col-md-6 col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <strong>Funcionalidades básicas del @userTitle</strong>
+            </div>
+
+            <ul class="list-group list-group-flush">
+                @if (isGlobalAdmin)
+                {
+                    <li class="list-group-item">Administrar usuarios administradores de atracciones turísticas</li>
+
+                }
+                <li class="list-group-item">Administrar, agregar, habilitar, deshabilitar atracciones turísticas</li>
+                <li class="list-group-item">Administrar y revisar sugerencias de atracciones turísticas para su aprobación o rechazo</li>
+            </ul>
+        </div>
+    </div>
+</div>

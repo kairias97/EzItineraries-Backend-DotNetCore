@@ -27,7 +27,7 @@ namespace ItinerariesAdminWebApp.Models
         public DateTime CreatedDate { get; set; }
     }
 
-    public enum InvitationStatus
+    public enum InvitationStatus : int
     {
         Registered = 0,
         Sent = 1,

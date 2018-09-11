@@ -9,9 +9,12 @@ namespace ItinerariesAdminWebApp.Models.DAL
     public class EFTouristAttractionRepository : ITouristAttractionRepository
     {
         private ApplicationDbContext context;
-        public EFTouristAttractionRepository(ApplicationDbContext ctx)
+        private ITouristAttractionConnectionRepository _touristAttractionConnectionRepository;
+        public EFTouristAttractionRepository(ApplicationDbContext ctx,
+            ITouristAttractionConnectionRepository connectionRepository)
         {
             context = ctx;
+            _touristAttractionConnectionRepository = connectionRepository;
         }
 
         public IQueryable<TouristAttraction> GetAttractions => context.TouristAttractions;
@@ -24,6 +27,8 @@ namespace ItinerariesAdminWebApp.Models.DAL
             context.Entry(attraction).Property(a => a.Active).IsModified = true;
             context.SaveChanges();
             //After update it will be needed to recreate the matrix
+
+            _touristAttractionConnectionRepository.RecalculateConnections(attraction.Id);
         }
 
         public void Enable(int touristAttractionId)
@@ -33,6 +38,8 @@ namespace ItinerariesAdminWebApp.Models.DAL
             context.Entry(attraction).Property(a => a.Active).IsModified = true;
             context.SaveChanges();
             //After update it will be needed to recreate the matrix
+
+            _touristAttractionConnectionRepository.RecalculateConnections(attraction.Id);
         }
 
         public void SaveChanges(TouristAttraction attraction)
@@ -46,6 +53,8 @@ namespace ItinerariesAdminWebApp.Models.DAL
                 context.Entry(attraction).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             }
             context.SaveChanges();
+
+            _touristAttractionConnectionRepository.RecalculateConnections(attraction.Id);
         }
     }
 }

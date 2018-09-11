@@ -15,8 +15,8 @@ namespace ItinerariesAdminWebApp.Models.Gateway
         public SendGridMailer(IConfiguration config)
         {
             _apiKey = config["ItinerariesAdminWebApp:SendGridApiKey"];
-            string fromEmail = config["LexincorpAdmin:SendGridSenderEmail"];
-            string fromName = config["LexincorpAdmin:SendGridSenderName"];
+            string fromEmail = config["ItinerariesAdminWebApp:SendGridSenderEmail"];
+            string fromName = config["ItinerariesAdminWebApp:SendGridSenderName"];
             _fromAddress = new EmailAddress(fromEmail, fromName);
         }
         public async Task<bool> Send(string to, string subject, string body, string htmlBody = "")

@@ -3,18 +3,44 @@
     ViewData["Title"] = "Nueva invitación";
 }
 @model Invitation
+
+<br />
 <div class="row">
-    <div class="panel panel-default col-md-6 col-sm-12">
-        <div class="panel-heading">Invitación de usuario administrador de atracciones turísticas</div>
+
+    <div class="card col-md-6 col-sm-12">
+        @if (ViewBag.InvitationSent != null && (bool)ViewBag.InvitationSent)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <p>Invitación enviada con éxito</p>
+
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+        }
+        else if (ViewBag.InvitationSent != null && !((bool)ViewBag.InvitationSent))
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <p>La invitación fue anulada debido a un error en el envío de la invitación</p>
+
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+        }
+        <h4 class="card-title">Invitación de usuario administrador de atracciones turísticas</h4>
         <div class="panel-body">
             <form action="New" method="post">
                 <div class="form-group">
                     <label for="Email">Correo electrónico</label>
-                    <input type="email" asp-for="@Model.Email" required class="form-control"/>
+                    <input type="email" asp-for="@Model.Email" required class="form-control" />
                 </div>
                 <button type="submit" class="btn btn-primary text-center">Enviar</button>
             </form>
         </div>
+        <br />
     </div>
 
 </div>

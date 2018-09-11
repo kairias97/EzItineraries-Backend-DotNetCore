@@ -18,19 +18,19 @@
 </script>
 <h3>Administración de administradores de atracciones turísticas</h3>
 <div class="row">
-    <div class="panel panel-default col-md-6 col-sm-12">
-        <div class="panel-heading">Filtro de búsqueda</div>
-        <div class="panel-body">
+    <div class="card col-md-6 col-sm-12">
+        <div class="card-body">
+            <h5 class="card-title">Filtro de búsqueda</h5>
             <form action="Search" method="get">
                 <div class="form-group">
                     <label for="status">Estado:</label>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="status" id="status1" value="true" >
-                        <label class="form-check-label" for="status1">1</label>
+                        <input class="form-check-input" type="radio" name="status" id="status1" value="true">
+                        <label class="form-check-label" for="status1">Habilitado</label>
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="status" id="status2" value="false">
-                        <label class="form-check-label" for="status2">2</label>
+                        <label class="form-check-label" for="status2">Deshabilitado</label>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Buscar</button>
@@ -39,6 +39,10 @@
     </div>
 
 </div>
+<br />
+<a asp-action="New" asp-controller="Invitation" class="btn btn-primary">Nueva invitación</a>
+<br />
+<br />
 <div class="table-responsive">
     <table class="table table-striped table-bordered">
         <thead>

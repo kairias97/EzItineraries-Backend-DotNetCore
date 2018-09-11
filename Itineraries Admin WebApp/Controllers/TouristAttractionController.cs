@@ -58,7 +58,7 @@ namespace ItinerariesAdminWebApp.Controllers
                     TotalItems = _touristAtracctionRepository.GetAttractions.Count(filterFunction)
                 }
             };
-            return View();
+            return View(vm);
         }
         public IActionResult New()
         {
@@ -105,7 +105,7 @@ namespace ItinerariesAdminWebApp.Controllers
         {
             _touristAtracctionRepository.SaveChanges(attraction);
             TempData["updated"] = true;
-            return RedirectToAction(nameof(Edit));
+            return RedirectToAction(nameof(Edit), new { id = attraction.Id});
         }
         public IActionResult ChangeStatus(int id)
         {
@@ -128,14 +128,14 @@ namespace ItinerariesAdminWebApp.Controllers
         {
             _touristAtracctionRepository.Disable(id);
             TempData["enabled"] = false;
-            return RedirectToAction(nameof(ChangeStatus));
+            return RedirectToAction(nameof(ChangeStatus), new { id = id});
         }
         [HttpPost]
         public IActionResult Enable(int id)
         {
             _touristAtracctionRepository.Enable(id);
             TempData["enabled"] = true;
-            return RedirectToAction(nameof(ChangeStatus));
+            return RedirectToAction(nameof(ChangeStatus), new { id = id });
 
         }
         public JsonResult GetCitiesByCountry(string countryId)

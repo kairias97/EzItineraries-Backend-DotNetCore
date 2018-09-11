@@ -8,10 +8,12 @@ namespace ItinerariesAdminWebApp.Models.DAL
     public class EFTouristAttractionSuggestionRepository : ITouristAttractionSuggestionRepository
     {
         private ApplicationDbContext context;
-
-        public EFTouristAttractionSuggestionRepository(ApplicationDbContext ctx)
+        private ITouristAttractionConnectionRepository _touristAttractionConnectionRepository;
+        public EFTouristAttractionSuggestionRepository(ApplicationDbContext ctx,
+            ITouristAttractionConnectionRepository connectionRepository)
         {
             context = ctx;
+            _touristAttractionConnectionRepository = connectionRepository;
         }
         public IQueryable<TouristAttractionSuggestion> GetSuggestions => context.TouristAttractionSuggestions;
 
@@ -48,6 +50,7 @@ namespace ItinerariesAdminWebApp.Models.DAL
             context.TouristAttractions.Add(newAttraction);
             context.SaveChanges();
             //After save it will be needed to recreate the matrix
+            _touristAttractionConnectionRepository.RecalculateConnections(newAttraction.Id);
         }
 
         public void Reject(int suggestionId, int rejectorId)
