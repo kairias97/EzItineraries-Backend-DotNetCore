@@ -140,7 +140,10 @@ namespace ItinerariesAdminWebApp.Controllers
         }
         public JsonResult GetCitiesByCountry(string countryId)
         {
-            return Json(_cityRepository.GetCities.OrderBy(c => c.Name).Where(c=> c.CountryId == countryId));
+            return Json(_cityRepository.GetCities
+                .OrderBy(c => c.Name)
+                .Where(c=> c.CountryId == countryId)
+                .Select(c=> new { id = c.Id, name = c.Name, countryId = c.CountryId}));
         }
 
     }

@@ -44,11 +44,11 @@ namespace ItinerariesAdminWebApp.Controllers
             };
             return View(vm);
         }
-        public IActionResult Approval(int suggestionId)
+        public IActionResult Approval(int id)
         {
             TempData.Keep("status");
             var suggestion = _suggestionRepository.GetSuggestions
-                .Where(s => s.Id == suggestionId && s.Approved == null)
+                .Where(s => s.Id == id && s.Approved == null)
                 .Include(s => s.Category)
                 .Include(s => s.City)
                 .ThenInclude(city => city.Country)
@@ -62,6 +62,11 @@ namespace ItinerariesAdminWebApp.Controllers
         [HttpPost]
         public IActionResult Approve(TouristAttractionSuggestion suggestion)
         {
+            if (_suggestionRepository.IsExistingAttraction(suggestion.Id))
+            {
+                ModelState.AddModelError("existingAttraction", "Ya existe una atracción turística con la información provista en la sugerencia, se recomienda rechazarla");
+                return View(nameof(Approval),suggestion);
+            }
             int approverId = Convert.ToInt32(User.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).First().Value);
             _suggestionRepository.Approve(suggestion, approverId);
             TempData["approved"] = true;

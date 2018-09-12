@@ -23,14 +23,12 @@
 </script>
 @if (ViewBag.ApprovedSuggestion != null)
 {
-    <div class="alert alert-danger alert-dismissible fade show">
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <p>@($"Sugerencia de atracción turística {((bool)ViewBag.ApprovedSuggestion ? "aprobada": "rechazada")} exitosamente!")</p>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <p>@($"Sugerencia de atracción turística {((bool)ViewBag.ApprovedSuggestion ? "aprobada" : "rechazada")} exitosamente!")</p>
 
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
     </div>
 
 }
@@ -51,7 +49,7 @@
                         <label class="form-check-label" for="status2">Rechazadas</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="status" id="status3" value="false">
+                        <input class="form-check-input" type="radio" name="status" id="status3" value="">
                         <label class="form-check-label" for="status3">Sin aprobar</label>
                     </div>
                 </div>

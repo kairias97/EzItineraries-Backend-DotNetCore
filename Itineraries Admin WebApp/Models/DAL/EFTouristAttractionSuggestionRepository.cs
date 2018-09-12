@@ -33,24 +33,34 @@ namespace ItinerariesAdminWebApp.Models.DAL
             context.Entry(suggestion).Property(s => s.AnsweredDate).IsModified = true;
 
             //Creation of new touristic attraction
-            var newAttraction = new TouristAttraction
-            {
-                CreatedBy = approverId,
-                Active = true,
-                Address = suggestion.Address,
-                CategoryId = suggestion.CategoryId,
-                CityId = suggestion.CityId,
-                Geoposition = new Geoposition { Latitude = suggestion.Geoposition.Latitude, Longitude = suggestion.Geoposition.Longitude },
-                GooglePlaceId = suggestion.GooglePlaceId,
-                Name = suggestion.Name,
-                PhoneNumber = suggestion.PhoneNumber,
-                Rating = suggestion.Rating,
-                WebsiteUrl = suggestion.WebsiteUrl
-            };
+            var newAttraction = context.TouristAttractionSuggestions
+                .Where(s => s.Id == suggestion.Id)
+                .Select(s => new TouristAttraction
+                {
+                    CreatedBy = approverId,
+                    Active = true,
+                    Address = s.Address,
+                    CategoryId = s.CategoryId,
+                    CityId = s.CityId,
+                    Geoposition = new Geoposition { Latitude = s.Geoposition.Latitude, Longitude = s.Geoposition.Longitude },
+                    GooglePlaceId = s.GooglePlaceId,
+                    Name = s.Name,
+                    PhoneNumber = suggestion.PhoneNumber,
+                    Rating = suggestion.Rating,
+                    WebsiteUrl = suggestion.WebsiteUrl
+                }).First();
             context.TouristAttractions.Add(newAttraction);
             context.SaveChanges();
             //After save it will be needed to recreate the matrix
             _touristAttractionConnectionRepository.RecalculateConnections(newAttraction.Id);
+        }
+
+        public bool IsExistingAttraction(int id)
+        {
+            return context.TouristAttractions.Join(context.TouristAttractionSuggestions.Where(tas => tas.Id == id),
+                ta => ta.GooglePlaceId,
+                tas => tas.GooglePlaceId,
+                (ta, tas) => ta).Any();
         }
 
         public void Reject(int suggestionId, int rejectorId)
