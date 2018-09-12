@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ItinerariesAdminWebApp", "Itineraries Admin WebApp\ItinerariesAdminWebApp.csproj", "{23C433A7-C630-4435-BA7B-40BCC144CF2E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ItineriesApi", "ItineriesApi\ItineriesApi.csproj", "{BE60D24C-0C0A-4885-9AC3-4F83ADB18D98}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{23C433A7-C630-4435-BA7B-40BCC144CF2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{23C433A7-C630-4435-BA7B-40BCC144CF2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{23C433A7-C630-4435-BA7B-40BCC144CF2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE60D24C-0C0A-4885-9AC3-4F83ADB18D98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE60D24C-0C0A-4885-9AC3-4F83ADB18D98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE60D24C-0C0A-4885-9AC3-4F83ADB18D98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE60D24C-0C0A-4885-9AC3-4F83ADB18D98}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
