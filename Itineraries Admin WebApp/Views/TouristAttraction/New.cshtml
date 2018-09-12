@@ -108,7 +108,7 @@
         //set here logic for charging from ajax the countries
         $.ajax({
             type: "GET",
-            url: "/TouristAttraction/GetCitiesByCountry?countryId="+countryInput.value,
+            url: '@(Url.Action("GetCitiesByCountry", "TouristAttraction"))' + "?countryId="+countryInput.value,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (data) {
