@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ItineriesApi.Models;
-using ItineriesApi.Models.DAL;
+using ItinerariesApi.Models;
+using ItinerariesApi.Models.DAL;
+using ItinerariesApi.Models.Gateway;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -14,7 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace ItineriesApi
+namespace ItinerariesApi
 {
     public class Startup
     {
@@ -30,13 +31,16 @@ namespace ItineriesApi
         {
             services.AddDbContext<ApplicationDbContext>(options =>
             {
-                options.UseLazyLoadingProxies()
-                    .UseSqlServer(Configuration["ItinerariesApi:ConnectionString"]);
+                options.UseSqlServer(Configuration["ItinerariesApi:ConnectionString"]);
             });
             services.AddTransient<ICategoryRepository, EFCategoryRepository>();
             services.AddTransient<ICountryRepository, EFCountryRepository>();
             services.AddTransient<ICityRepository, EFCityRepository>();
             services.AddTransient<ITouristAttractionRepository, EFTouristAttractionRepository>();
+            services.AddTransient<ITouristAttractionSuggestionRepository, EFTouristAttractionSuggestionRepository>();
+            services.AddTransient<IAdministratorRepository, EFAdministratorRepository>();
+            services.AddSingleton<IMailSender, SendGridMailer>();
+            services.AddTransient<IItineraryGenerator, OptimizedItineraryGenerator>();
             services.AddResponseCaching();
             services.AddMvc()
                 .AddJsonOptions(

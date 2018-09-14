@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace ItinerariesApi.Models
 {
-    public interface ITouristAttractionRepository
+    public interface IAdministratorRepository
     {
-        IQueryable<TouristAttraction> GetTouristAttractions { get; }
+        IEnumerable<string> GetNotificationEmails();
     }
 }

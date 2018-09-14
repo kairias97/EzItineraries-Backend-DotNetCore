@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ItineriesApi.Models;
+using ItinerariesApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ItineriesApi.Controllers
+namespace ItinerariesApi.Controllers
 {
     [Route("api/categories")]
     [ApiController]
@@ -24,7 +24,7 @@ namespace ItineriesApi.Controllers
         public ActionResult Get()
         {
             var categories =  _categoryRepository.GetCategories
-                .Select(cat => new { cat.Id, cat.Name})
+                //.Select(cat => new { cat.Id, cat.Name})
                 .ToList();
             return Ok(categories);
         }

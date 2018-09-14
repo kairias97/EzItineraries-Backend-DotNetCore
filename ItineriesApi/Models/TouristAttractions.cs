@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
-namespace ItineriesApi.Models
+namespace ItinerariesApi.Models
 {
     public partial class TouristAttraction
     {
@@ -19,14 +20,18 @@ namespace ItineriesApi.Models
         public string PhoneNumber { get; set; }
         public string WebsiteUrl { get; set; }
         public decimal? Rating { get; set; }
+        [JsonIgnore]
         public int CreatedBy { get; set; }
         public int CityId { get; set; }
         public bool Active { get; set; }
         public virtual Geoposition Geoposition { get; set; }
         public virtual Category Category { get; set; }
         public virtual City City { get; set; }
+        [JsonIgnore]
         public virtual Administrator CreatedByNavigation { get; set; }
+        [JsonIgnore]
         public virtual ICollection<TouristAttractionConnection> TouristAttractionConnectionsDestination { get; set; }
+        [JsonIgnore]
         public virtual ICollection<TouristAttractionConnection> TouristAttractionConnectionsOrigin { get; set; }
     }
 }

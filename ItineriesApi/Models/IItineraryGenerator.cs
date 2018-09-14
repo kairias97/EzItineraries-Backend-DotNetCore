@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace ItinerariesApi.Models
 {
-    public interface ITouristAttractionRepository
+    public interface IItineraryGenerator
     {
-        IQueryable<TouristAttraction> GetTouristAttractions { get; }
+        ItineraryProposal GenerateProposal(ItineraryRequest request);
     }
 }

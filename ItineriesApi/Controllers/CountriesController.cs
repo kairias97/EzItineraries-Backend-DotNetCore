@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ItineriesApi.Models;
+using ItinerariesApi.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ItineriesApi.Controllers
+namespace ItinerariesApi.Controllers
 {
     [Route("api/countries")]
     [ApiController]
@@ -24,7 +24,8 @@ namespace ItineriesApi.Controllers
         {
             var countries = _countryRepository.GetCountries
                 .Where(country => !onlyWithAttractions || country.Cities.Any(city => city.TouristAttractions.Any(ta => ta.Active)))
-                .Select(country => new { country.IsoNumericCode, country.Name, country.Alpha2Code, country.Alpha3Code, test = DateTime.Now}).ToList();
+                .ToList();
+                //.Select(country => new { country.IsoNumericCode, country.Name, country.Alpha2Code, country.Alpha3Code}).ToList();
             return Ok(countries);
         }
         

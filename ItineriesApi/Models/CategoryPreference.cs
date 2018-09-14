@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 
 namespace ItinerariesApi.Models
 {
-    public interface ITouristAttractionRepository
+    public class CategoryPreference
     {
-        IQueryable<TouristAttraction> GetTouristAttractions { get; }
+
+        public int CategoryId { get; set; }
+        public double Weight { get; set; }
     }
 }

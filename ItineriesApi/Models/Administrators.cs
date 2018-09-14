@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ItineriesApi.Models
+namespace ItinerariesApi.Models
 {
     public partial class Administrator
     {

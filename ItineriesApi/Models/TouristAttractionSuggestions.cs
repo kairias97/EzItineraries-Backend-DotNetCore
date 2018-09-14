@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
-namespace ItineriesApi.Models
+namespace ItinerariesApi.Models
 {
     public partial class TouristAttractionSuggestion
     {

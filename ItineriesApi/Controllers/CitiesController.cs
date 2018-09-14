@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ItineriesApi.Models;
+using ItinerariesApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-
-namespace ItineriesApi.Controllers
+using Microsoft.EntityFrameworkCore;
+namespace ItinerariesApi.Controllers
 {
     [Route("api/")]
     [ApiController]
@@ -24,8 +24,9 @@ namespace ItineriesApi.Controllers
         public ActionResult Get([FromRoute] string countryId, [FromQuery] bool onlyWithAttractions = false)
         {
             var cities = _cityRepository.GetCities
+                .Include(c => c.Country)
                 .Where(city => city.CountryId == countryId && ( !onlyWithAttractions || city.TouristAttractions.Any(ta => ta.Active)))
-                .Select(c => new { c.Id, c.CountryId, c.Name})
+                //.Select(c => new { c.Id, country = new { c.Country.IsoNumericCode, c.Country.Name}, c.Name})
                 .ToList();
             return Ok(cities);
         }

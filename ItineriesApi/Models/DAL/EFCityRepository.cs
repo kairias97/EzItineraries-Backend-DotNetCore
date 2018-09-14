@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ItineriesApi.Models.DAL
+namespace ItinerariesApi.Models.DAL
 {
     public class EFCityRepository : ICityRepository
     {

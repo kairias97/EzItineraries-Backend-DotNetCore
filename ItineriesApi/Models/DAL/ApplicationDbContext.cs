@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace ItineriesApi.Models.DAL
+namespace ItinerariesApi.Models.DAL
 {
     public partial class ApplicationDbContext : DbContext
     {

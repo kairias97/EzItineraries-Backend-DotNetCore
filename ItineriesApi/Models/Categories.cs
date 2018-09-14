@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
-namespace ItineriesApi.Models
+namespace ItinerariesApi.Models
 {
     public partial class Category
     {
@@ -13,8 +14,9 @@ namespace ItineriesApi.Models
 
         public int Id { get; set; }
         public string Name { get; set; }
-
+        [JsonIgnore]
         public virtual ICollection<TouristAttractionSuggestion> TouristAttractionSuggestions { get; set; }
+        [JsonIgnore]
         public virtual ICollection<TouristAttraction> TouristAttractions { get; set; }
     }
 }
