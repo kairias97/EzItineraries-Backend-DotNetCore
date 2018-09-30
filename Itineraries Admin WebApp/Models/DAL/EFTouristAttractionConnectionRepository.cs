@@ -35,7 +35,7 @@ namespace ItinerariesAdminWebApp.Models.DAL
             //If it is active the matrix has to be recalculated
             if (targetAttraction.Active)
             {
-                //lookup for the attractions that dont have a connection attached to the target attractio
+                //lookup for the attractions that dont have a connection attached to the target attraction
                 var attractionsForConnections = context.TouristAttractions
                     .Where(ta => ta.Id != targetAttraction.AttractionId && ta.CityId == targetAttraction.CityId && ta.Active && !ta.OriginPositionDistances.Any(opd => opd.DestinationId == targetAttraction.AttractionId))
                     .Select(ta => new
@@ -62,6 +62,15 @@ namespace ItinerariesAdminWebApp.Models.DAL
                         DestinationId = c.OriginId,
                         Distance = c.Distance
                     });
+                //Adding the connection same origin same destination
+                var sameOriginSameDestinationConnection = new TouristAttractionConnection
+                {
+                    CityId = targetAttraction.CityId,
+                    OriginId = targetAttraction.AttractionId,
+                    DestinationId = targetAttraction.AttractionId,
+                    Distance = 0.00
+                };
+                context.TouristAttractionConnections.Add(sameOriginSameDestinationConnection);
                 context.TouristAttractionConnections.AddRange(targetAsDestinationConnections);
                 context.TouristAttractionConnections.AddRange(targetAsOriginConnections);
             } else

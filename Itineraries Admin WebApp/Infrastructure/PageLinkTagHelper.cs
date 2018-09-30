@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace ItinerariesAdminWebApp.Infrastructure
 {
+    [HtmlTargetElement("div", Attributes = "page-model")]
     public class PageLinkTagHelper : TagHelper
     {
         private IUrlHelperFactory urlHelperFactory;

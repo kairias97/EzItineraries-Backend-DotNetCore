@@ -9,7 +9,7 @@ namespace ItinerariesApi.Controllers
 {
     [Route("api/countries")]
     [ApiController]
-    [ResponseCache(Duration = 60)]
+    [ResponseCache(Location =ResponseCacheLocation.None, NoStore = true)]
     public class CountriesController : ControllerBase
     {
         private readonly ICountryRepository _countryRepository;
@@ -24,8 +24,8 @@ namespace ItinerariesApi.Controllers
         {
             var countries = _countryRepository.GetCountries
                 .Where(country => !onlyWithAttractions || country.Cities.Any(city => city.TouristAttractions.Any(ta => ta.Active)))
+                .OrderBy(co => co.Name)
                 .ToList();
-                //.Select(country => new { country.IsoNumericCode, country.Name, country.Alpha2Code, country.Alpha3Code}).ToList();
             return Ok(countries);
         }
         

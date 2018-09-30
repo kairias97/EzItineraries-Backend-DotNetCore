@@ -4,7 +4,7 @@
 }
 @model NewAttractionViewModel
 <h3>Nueva atracción turística</h3>
-<form asp-action="Add" method="post">
+<form asp-action="Add" asp-controller="TouristAttraction" method="post">
     @if (ViewBag.Added ?? false)
     {
 
@@ -17,18 +17,19 @@
         </div>
 
     }
-    <div class="form-row">
-        @if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
-        {
-            // Bootstrap 2 = "alert-error", Bootstrap 3 and 4 = "alert-danger"
-            <div class="alert alert-danger alert-dismissible fade show">
-                @Html.ValidationSummary(false, "Errores de validación:")
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+    @if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
+    {
+        // Bootstrap 2 = "alert-error", Bootstrap 3 and 4 = "alert-danger"
+        <div class="alert alert-danger alert-dismissible fade show">
+            @Html.ValidationSummary(false, "Errores de validación:")
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
 
-            </div>
-        }
+        </div>
+    }
+    <div class="form-row">
+
         <div class="form-group col-md-5">
             <label name="CountryId" for="countrySelect">País</label>
             <select asp-items="@(new SelectList(Model.Countries, "IsoNumericCode", "Name"))" onchange="onCountrySelected(this)" required class="js-example-basic-single form-control">
@@ -57,11 +58,11 @@
         <div class="form-group col-md-5">
 
             <label for="Attraction_Geoposition_Latitude">Latitud</label>
-            <input type="number" step="0.000000000000001" asp-for="@Model.Attraction.Geoposition.Latitude" required class="form-control" />
+            <input type="text" asp-for="@Model.Attraction.Geoposition.Latitude" required class="form-control" />
         </div>
         <div class="form-group offset-md-1 col-md-5">
             <label for="Attraction_Geoposition_Longitude">Longitud</label>
-            <input type="number" step="0.000000000000001" asp-for="@Model.Attraction.Geoposition.Longitude" required class="form-control" />
+            <input type="text" asp-for="@Model.Attraction.Geoposition.Longitude" required class="form-control" />
         </div>
     </div>
     <div class="form-row">

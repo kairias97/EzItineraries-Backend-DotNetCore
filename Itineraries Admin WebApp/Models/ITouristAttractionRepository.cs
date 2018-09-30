@@ -11,5 +11,6 @@ namespace ItinerariesAdminWebApp.Models
         IQueryable<TouristAttraction> GetAttractions { get; }
         void Enable(int touristAttractionId);
         void Disable(int touristAttractionId);
+        bool VerifyExistence(string googlePlaceId);
     }
 }

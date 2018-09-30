@@ -22,7 +22,7 @@ namespace ItinerariesAdminWebApp.Models
         public string GooglePlaceId { get; set; }
         [Column(Order = 5, TypeName = "varchar(60)")]
         public string PhoneNumber { get; set; }
-        [Column(Order = 6, TypeName = "varchar(150)")]
+        [Column(Order = 6, TypeName = "varchar(1000)")]
         public string WebsiteUrl { get; set; }
         [Column(Order = 7, TypeName = "decimal(18,2)")]
         [Range(0, 5)]

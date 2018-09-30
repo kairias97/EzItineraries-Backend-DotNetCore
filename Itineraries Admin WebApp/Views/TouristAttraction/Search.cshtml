@@ -44,7 +44,7 @@
                         <label class="form-check-label" for="status2">Deshabilitado</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="status" id="status3" value="false">
+                        <input class="form-check-input" type="radio" name="status" id="status3" value="">
                         <label class="form-check-label" for="status3">Todos</label>
                     </div>
                 </div>
@@ -87,6 +87,8 @@
                     <td>@(a.Active ? "Habilitado" : "Deshabilitado")</td>
                     <td>
                         <a asp-action="ChangeStatus" asp-route-id="@a.Id"><i class="fas @(a.Active ? "fa-minus": "fa-check")" data-toggle="tooltip" data-placement="top" title="@(a.Active ? "Deshabilitar": "Habilitar")"></i></a>
+                        <a asp-action="Edit" asp-route-id="@a.Id"><i class="fas fa-edit" data-toggle="tooltip" data-placement="top" title="Actualizar"></i></a>
+
                     </td>
                 </tr>
             }

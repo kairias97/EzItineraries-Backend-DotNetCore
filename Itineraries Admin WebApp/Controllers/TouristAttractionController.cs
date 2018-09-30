@@ -50,7 +50,9 @@ namespace ItinerariesAdminWebApp.Controllers
                     .Include(a => a.City)
                     .ThenInclude(city => city.Country)
                     .Where(filterFunction)
-                    .OrderBy(ta => ta.Name),
+                    .OrderBy(ta => ta.Name)
+                    .Skip((pageNumber - 1) * PageSize)
+                    .Take(PageSize),
                 PagingInfo = new PagingInfo
                 {
                     CurrentPage = pageNumber,
@@ -79,6 +81,17 @@ namespace ItinerariesAdminWebApp.Controllers
         [HttpPost]
         public IActionResult Add(TouristAttraction attraction)
         {
+            if (_touristAtracctionRepository.VerifyExistence(attraction.GooglePlaceId)) {
+                ModelState.AddModelError("AlreadyExists", "La atracción turística ya se encuentra registrada");
+                NewAttractionViewModel vm = new NewAttractionViewModel
+                {
+                    Countries = _countryRepository.GetCountries.OrderBy(c => c.Name),
+                    Attraction = attraction,
+                    Categories = _categoryRepository.GetCategories.OrderBy(c => c.Name)
+                };
+                ViewBag.Key = Convert.ToString(_configuration["ItinerariesAdminWebApp:PlacesApiKey"]);
+                return View("New", vm);
+            }
             attraction.CreatedBy = Convert.ToInt32(User.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).First().Value);
             _touristAtracctionRepository.SaveChanges(attraction);
             TempData["added"] = true;

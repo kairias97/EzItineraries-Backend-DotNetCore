@@ -211,7 +211,7 @@ namespace ItinerariesApi.Models.DAL
                     .IsUnicode(false);
 
                 entity.Property(e => e.WebsiteUrl)
-                    .HasMaxLength(150)
+                    .HasMaxLength(1000)
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.AnsweredByNavigation)

@@ -21,4 +21,10 @@
     <PackageReference Include="Sendgrid" Version="9.9.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="wwwroot\img\ezitineraries logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

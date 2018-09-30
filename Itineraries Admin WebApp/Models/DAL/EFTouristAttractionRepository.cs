@@ -44,6 +44,7 @@ namespace ItinerariesAdminWebApp.Models.DAL
 
         public void SaveChanges(TouristAttraction attraction)
         {
+            bool isNew = attraction.Id == 0;
             if (attraction.Id == 0)
             {
                 context.TouristAttractions.Add(attraction);
@@ -53,8 +54,16 @@ namespace ItinerariesAdminWebApp.Models.DAL
                 context.Entry(attraction).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             }
             context.SaveChanges();
+            if (isNew)
+            {
+                _touristAttractionConnectionRepository.RecalculateConnections(attraction.Id);
+            }
+            
+        }
 
-            _touristAttractionConnectionRepository.RecalculateConnections(attraction.Id);
+        public bool VerifyExistence(string googlePlaceId)
+        {
+            return context.TouristAttractions.Any(ta => ta.GooglePlaceId == googlePlaceId);
         }
     }
 }
