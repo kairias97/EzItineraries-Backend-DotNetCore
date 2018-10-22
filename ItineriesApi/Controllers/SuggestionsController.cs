@@ -42,7 +42,7 @@ namespace ItinerariesApi.Controllers
             }
             _touristAttractionSuggestionRepository.SaveSuggestion(suggestion);
             var notificationEmails = _administratorRepository.GetNotificationEmails();
-            _mailer.Send(notificationEmails.ToList(), "Nueva sugerencia registrada", $"Se registro una nueva sugerencia de atracción turística para atracción '{suggestion.Name}'.");
+            _mailer.Send(notificationEmails.ToList(), "Nueva sugerencia registrada", $"Se registró una nueva sugerencia de atracción turística para la atracción '{suggestion.Name}'.");
             return Ok(new { isSuccessful = true, message = "Sugerencia registrada exitosamente" });
         }
     }
