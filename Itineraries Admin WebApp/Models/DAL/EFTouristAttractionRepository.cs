@@ -51,7 +51,11 @@ namespace ItinerariesAdminWebApp.Models.DAL
                 //After creation it will be needed to recreate the matrix
             } else
             {
-                context.Entry(attraction).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                context.TouristAttractions.Attach(attraction);
+                //context.Entry(attraction).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                context.Entry(attraction).Property(ta => ta.WebsiteUrl).IsModified = true;
+                context.Entry(attraction).Property(ta => ta.Rating).IsModified = true;
+                context.Entry(attraction).Property(ta => ta.PhoneNumber).IsModified = true;
             }
             context.SaveChanges();
             if (isNew)
